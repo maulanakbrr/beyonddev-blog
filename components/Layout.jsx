@@ -13,7 +13,7 @@ const Layout = ({title, keywords, description, children}) => {
 
       <Header/>
 
-      <main className="container mx-auto xl:mx-4 my-7">{children}</main>
+      <main className="container mx-auto my-7">{children}</main>
     </div>
   )
 }
