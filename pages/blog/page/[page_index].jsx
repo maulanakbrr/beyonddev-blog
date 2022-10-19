@@ -4,6 +4,7 @@ import matter from 'gray-matter'
 import Link from 'next/link'
 import Layout from "../../../components/Layout"
 import Post from '../../../components/Post'
+import Pagination from '../../../components/Pagination'
 import { sortByDate } from '../../../utils'
 import { POSTS_PER_PAGE } from '../../../config'
 
@@ -18,7 +19,7 @@ const BlogPage = ({ posts, numPages, currentPage }) => {
         ))}
       </div>
 
-      
+      <Pagination currentPage={currentPage} numPages={numPages}/>
     </Layout>
   )
 }
