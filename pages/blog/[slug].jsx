@@ -4,8 +4,8 @@ import matter from 'gray-matter'
 import {marked} from 'marked'
 import sanitizeHtml from 'sanitize-html'
 import Link from 'next/link'
-import Layout from '../../components/Layout'
-import CategoryLabel from '../../components/CategoryLabel'
+import Layout from '@/components/Layout'
+import CategoryLabel from '@/components/CategoryLabel'
 
 const PostPage = ({frontmatter, content, slug}) => {
   // console.log(frontmatter)
