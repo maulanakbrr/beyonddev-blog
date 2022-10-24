@@ -1,12 +1,11 @@
 import fs from 'fs'
 import path from 'path'
-import matter from 'gray-matter'
-import Link from 'next/link'
 import Layout from "@/components/Layout"
 import Post from '@/components/Post'
 import Pagination from '@/components/Pagination'
 import { sortByDate } from '@/utils/index'
 import { POSTS_PER_PAGE } from '@/config/index'
+import { getPosts } from '@/lib/posts'
 
 const BlogPage = ({ posts, numPages, currentPage }) => {
   return (
@@ -37,7 +36,6 @@ export const getStaticPaths = async () => {
     })
   }
 
-  // console.log(paths)
   return {
     paths,
     fallback: false
@@ -46,22 +44,10 @@ export const getStaticPaths = async () => {
 
 export const getStaticProps = async ({params}) => {
   const page = parseInt((params && params.page_index) || 1) 
-  const files = fs.readdirSync(path.join('posts'))
-
-  const posts = files.map(filename => {
-    const slug = filename.replace('.md', '')
-    const markdownWithMeta = fs.readFileSync(path.join('posts', filename), 'utf-8')
-
-    const { data:frontmatter } = matter(markdownWithMeta)
-    return {
-      slug,
-      frontmatter
-    }
-  })
-
-  const numPages = Math.ceil(files.length / POSTS_PER_PAGE)
+  
+  const numPages = Math.ceil(getPosts().length / POSTS_PER_PAGE)
   const pageIndex = page - 1
-  const orderedPosts = posts.sort(sortByDate).slice(pageIndex * POSTS_PER_PAGE, (pageIndex + 1) * POSTS_PER_PAGE)
+  const orderedPosts = getPosts().sort(sortByDate).slice(pageIndex * POSTS_PER_PAGE, (pageIndex + 1) * POSTS_PER_PAGE)
 
   return {
     props: {
