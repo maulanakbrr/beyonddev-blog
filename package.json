@@ -6,6 +6,7 @@
     "dev": "next dev",
     "dev2": "next dev -p 3001",
     "build": "next build",
+    "build2": "next build && next export",
     "start": "next start",
     "lint": "next lint"
   },
@@ -15,6 +16,7 @@
     "next": "12.3.1",
     "react": "18.2.0",
     "react-dom": "18.2.0",
+    "react-icons": "^4.6.0",
     "sanitize-html": "^2.7.2"
   },
   "devDependencies": {
