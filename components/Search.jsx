@@ -1,9 +1,24 @@
 import { useState, useEffect } from "react"
 import { FaSearch } from 'react-icons/fa'
+import SearchResult from "./SearchResult"
 
 const Search = () => {
   const [searchTerm, setSearchTerm] = useState('')
   const [searchResult, setSearchResult] = useState([])
+
+  useEffect(() => {
+    const getResults = async () => {
+      if (searchTerm === '') {
+        setSearchResult([])
+      } else {
+        const res = await fetch(`/api/search?q=${searchTerm}`)
+        const results = await res.json()
+        setSearchResult(results)
+      }
+    }
+
+    getResults()
+  }, [searchTerm])
 
   return (
     <div className="relative bg-gray-600 p-4">
@@ -24,6 +39,10 @@ const Search = () => {
           </form>
         </div>
       </div>
+
+      {
+        searchTerm && <SearchResult results={searchResult}/>
+      }
     </div>
   )
 }
